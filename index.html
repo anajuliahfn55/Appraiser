@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Catálogo pessoal de filmes e séries" />
+  <meta name="author" content="Turma de Informática 2026" />
+  <title> Appraiser - Catálogo de Filmes e Séries</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+      <a class="navbar-brand" href="#">🎬 Appraiser</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menu">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="menu">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="#secao-formulario">Adicionar</a></li>
+          <li class="nav-item"><a class="nav-link" href="#secao-catalogo">Catálogo</a></li>
+          <li class="nav-item"><a class="nav-link" href="#secao-estatisticas">Estatísticas</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container mt-3" id="area-avisos"></div>
+
+  <section class="container my-4" id="secao-formulario">
+    <h4 class="mb-3">Adicionar Título</h4>
+    <div class="row">
+      <div class="col-12 col-md-8">
+        <div class="card p-4">
+          <form id="form-titulo">
+            <div class="mb-3">
+              <label for="campo-nome" class="form-label">Nome do Título</label>
+              <input type="text" class="form-control" id="campo-nome" placeholder="Ex: Interstellar, Breaking Bad..." />
+            </div>
+            <div class="row">
+              <div class="col-sm-6 mb-3">
+                <label for="campo-genero" class="form-label">Gênero</label>
+                <select class="form-select" id="campo-genero">
+                  <option value="">Selecione...</option>
+                  <option value="Ação">Ação</option>
+                  <option value="Aventura">Aventura</option>
+                  <option value="Animação">Animação</option>
+                  <option value="Comédia">Comédia</option>
+                  <option value="Documentário">Documentário</option>
+                  <option value="Drama">Drama</option>
+                  <option value="Fantasia">Fantasia</option>
+                  <option value="Ficção Científica">Ficção Científica</option>
+                  <option value="Romance">Romance</option>
+                  <option value="Suspense">Suspense</option>
+                  <option value="Terror">Terror</option>
+                </select>
+              </div>
+              <div class="col-sm-6 mb-3">
+                <label for="campo-ano" class="form-label">Ano de Lançamento</label>
+                <input type="number" class="form-control" id="campo-ano" placeholder="Ex: 2023" min="1888" max="2030" />
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-6 mb-3">
+                <label for="campo-tipo" class="form-label">Tipo</label>
+                <select class="form-select" id="campo-tipo">
+                  <option value="Filme">Filme</option>
+                  <option value="Série">Série</option>
+                  <option value="Documentário">Documentário</option>
+                  <option value="Minissérie">Minissérie</option>
+                </select>
+              </div>
+              <div class="col-sm-6 mb-3">
+                <label for="campo-status" class="form-label">Status</label>
+                <select class="form-select" id="campo-status">
+                  <option value="pendente">⏳ Pendente</option>
+                  <option value="assistido">✅ Assistido</option>
+                </select>
+              </div>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Avaliação</label>
+              <div id="estrelas-input">
+                <span class="estrela" data-valor="1">★</span>
+                <span class="estrela" data-valor="2">★</span>
+                <span class="estrela" data-valor="3">★</span>
+                <span class="estrela" data-valor="4">★</span>
+                <span class="estrela" data-valor="5">★</span>
+              </div>
+              <input type="hidden" id="campo-avaliacao" value="0" />
+              <small class="text-muted" id="texto-avaliacao">Clique para avaliar</small>
+            </div>
+            <div class="mb-3">
+              <label for="campo-obs" class="form-label">Observações</label>
+              <textarea class="form-control" id="campo-obs" rows="2" placeholder="Comentários, onde assistir..."></textarea>
+            </div>
+            <div class="d-flex gap-2">
+              <button type="submit" class="btn btn-primary" id="btn-salvar">Adicionar</button>
+              <button type="button" class="btn btn-secondary" id="btn-cancelar" style="display: none;">Cancelar Edição</button>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="col-12 col-md-4 mt-4 mt-md-0">
+        <div class="card p-3">
+          <h6 class="mb-2">Gêneros disponíveis</h6>
+          <ul class="lista-generos">
+            <li>Ação</li>
+            <li>Aventura</li>
+            <li>Animação</li>
+            <li>Comédia</li>
+            <li>Documentário</li>
+            <li>Drama</li>
+            <li>Fantasia</li>
+            <li>Ficção Científica</li>
+            <li>Romance</li>
+            <li>Suspense</li>
+            <li>Terror</li>
+            <li>Thriller</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="container my-4" id="secao-catalogo">
+    <div class="d-flex align-items-center justify-content-between mb-3 flex-wrap gap-2">
+      <h4 class="mb-0">Catálogo</h4>
+      <span class="badge bg-primary" id="badge-total">0 títulos</span>
+    </div>
+    <div class="row g-2 mb-4">
+      <div class="col-12 col-md-5">
+        <input type="text" class="form-control" id="campo-busca" placeholder="Buscar por título..." />
+      </div>
+      <div class="col-6 col-md-3">
+        <select class="form-select" id="filtro-genero">
+          <option value="">Todos os gêneros</option>
+          <option value="Ação">Ação</option>
+          <option value="Aventura">Aventura</option>
+          <option value="Animação">Animação</option>
+          <option value="Comédia">Comédia</option>
+          <option value="Documentário">Documentário</option>
+          <option value="Drama">Drama</option>
+          <option value="Fantasia">Fantasia</option>
+          <option value="Ficção Científica">Ficção Científica</option>
+          <option value="Romance">Romance</option>
+          <option value="Suspense">Suspense</option>
+          <option value="Terror">Terror</option>
+        </select>
+      </div>
+      <div class="col-6 col-md-3">
+        <select class="form-select" id="filtro-status">
+          <option value="">Todos os status</option>
+          <option value="assistido">✅ Assistidos</option>
+          <option value="pendente">⏳ Pendentes</option>
+        </select>
+      </div>
+      <div class="col-12 col-md-1 d-grid">
+        <button class="btn btn-outline-secondary" id="btn-limpar">✕</button>
+      </div>
+    </div>
+    <div class="row g-3" id="grid-catalogo"></div>
+    <div id="msg-vazio" class="text-center py-5 text-muted">
+      <p class="fs-5">Nenhum título cadastrado ainda.<br>Comece adicionando seu primeiro filme ou série!</p>
+    </div>
+    <div id="msg-sem-resultado" class="text-center py-5 text-muted" style="display: none;">
+      <p class="fs-5">Nenhum resultado encontrado para essa busca.</p>
+    </div>
+  </section>
+
+  <section class="container my-4" id="secao-estatisticas">
+    <h4 class="mb-3">Estatísticas</h4>
+    <div class="row g-3 mb-4">
+      <div class="col-6 col-md-3">
+        <div class="card text-center p-3">
+          <div class="stat-numero" id="stat-total">0</div>
+          <div class="stat-label">Total</div>
+        </div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="card text-center p-3">
+          <div class="stat-numero text-success" id="stat-assistidos">0</div>
+          <div class="stat-label">Assistidos</div>
+        </div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="card text-center p-3">
+          <div class="stat-numero text-warning" id="stat-pendentes">0</div>
+          <div class="stat-label">Pendentes</div>
+        </div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="card text-center p-3">
+          <div class="stat-numero text-primary" id="stat-media">—</div>
+          <div class="stat-label">Média ★</div>
+        </div>
+      </div>
+    </div>
+    <div class="table-responsive">
+      <table class="table table-bordered table-hover">
+        <thead class="table-dark">
+          <tr>
+            <th>Gênero</th>
+            <th class="text-center">Total</th>
+            <th class="text-center">Assistidos</th>
+            <th class="text-center">Média ★</th>
+          </tr>
+        </thead>
+        <tbody id="tabela-generos">
+          <tr>
+            <td colspan="4" class="text-center text-muted">Nenhum título cadastrado ainda.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <div class="modal fade" id="modal-excluir" tabindex="-1" aria-labelledby="titulo-modal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="titulo-modal">Confirmar Exclusão</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          Tem certeza que deseja remover <strong id="modal-nome-titulo"></strong> do catálogo?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="button" class="btn btn-danger" id="btn-confirmar-exclusao">Remover</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="script.js"></script>
+
+</body>
+</html>
